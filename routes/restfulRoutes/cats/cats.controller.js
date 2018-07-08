@@ -39,12 +39,7 @@ const updateById = async (req, res) => {
 
 const create = async (req, res) => {
     try { 
-        const data = {
-            name: req.body.name,
-            age: req.body.age,
-            owner: req.body.owner
-        }
-        await catsServices.create(data);
+        await catsServices.create(req.body);
         await res.send({ status: 'create cat success'});
     } catch (error) {
         console.log(error);
@@ -54,11 +49,17 @@ const create = async (req, res) => {
 
 const deleteById = async (req, res) => {
     try { 
-     
-        const data = {
-            cats: await catsServices.deleteById(req.params.id)
+        const deletedCat = await catsServices.deleteById(req.params.id);
+        if(!deletedCat) {
+            throw `Can not find id: ${req.params.id} for delete cat`
+        } else {
+            const data = {
+                cat: `cat id: ${req.params.id}  deleted success!`
+            }
+
+            res.send(data);
         }
-        res.send(data);
+        
     } catch (error) {
         console.log(error);
         await res.status(400).send({ error })

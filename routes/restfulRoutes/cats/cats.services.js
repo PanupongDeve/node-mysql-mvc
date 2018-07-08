@@ -1,52 +1,48 @@
 const Cat = require('./cats.model');
-const connectDb = require('../../../utils/connectDB');
-
-let cats = false;
+const moment = require('../../../utils/moment');
 
 const findAll = async () => {
-    cats = (!cats) ? await connectDb.getDB(Cat) : cats;
+    cats = await Cat.findAll();
     return cats;
 }
 
 const create = async (data) => {
-    cats = (!cats) ? await connectDb.getDB(Cat) : cats;
-    const cat = await connectDb.postDB(Cat, data);
-    cats.push(cat);
+    data.createdAt = moment().format();
+    data.updatedAt = moment().format();
+
+    const cat = await Cat.create(data);
+    return cat;
 }
 
 const findById = async (id) => {
-    cats = (!cats) ? await connectDb.getDB(Cat) : cats;
-    const cat = cats.filter((catStore) => id === String(catStore._id));
-    return cat[0];
+    const cat = await Cat.findById(id);
+    return cat;
 }
 
 const updateById = async (id, data) => {
-    let cat = "Not Found";
-    cats = (!cats) ? await connectDb.getDB(Cat) : cats;
-    cats = cats.map((catStore) => {
-        if(id === String(catStore._id)) {
-            Object.assign(catStore, data);
+  
+    data.updatedAt = moment().format();
+    
+    const options = {
+        where: {
+            id
         }
-        return catStore;
-    });
-    connectDb.updateDBById(Cat,id,data);
-    cat = cats.filter((catStore) => id === String(catStore._id));
-    return cat[0];
+    }
 
-    // filter((catStore) => id === String(catStore._id));
+    let cats = await Cat.update(data, options);
+    cats = await Cat.findById(id);
+    return cats;   
 }
 
 const deleteById = async (id) => {
-    cats = (!cats) ? await connectDb.getDB(Cat) : cats;
+    const options = {
+        where: {
+            id
+        }
+    }
 
-    const cat = cats.filter((catStore) => id === String(catStore._id))[0];
-    cats = cats.filter((catStore) => id !== String(catStore._id));
-    
-    console.log(cat);
-    const data = { _id: String(cat._id) }
-
-    connectDb.removeDB(Cat, data);
-    return cats
+    const cats = await Cat.destroy(options);
+    return cats;
 } 
 
 module.exports = {
@@ -54,6 +50,5 @@ module.exports = {
     create,
     findById,
     updateById,
-    deleteById,
-    cats
+    deleteById
 }
