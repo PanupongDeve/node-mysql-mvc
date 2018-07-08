@@ -1,13 +1,15 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../../../database/sequelize');
 
-
-const Cat = sequelize.define('cats', {
-    firstName: {
+const Fish = sequelize.define('fishes', {
+    amount: {
+        type: Sequelize.INTEGER(10)
+    },
+    type: {
         type: Sequelize.STRING
     },
-    lastName: {
-        type: Sequelize.STRING
+    catId: {
+        type: Sequelize.INTEGER(10).UNSIGNED
     },
     createdAt: {
         field: 'created_at',
@@ -21,13 +23,12 @@ const Cat = sequelize.define('cats', {
         primaryKey: false,
         autoIncrement: false
     }
-});
+}, {timestamps: false});
 
-
-Cat
+Fish
     .sync()
     .then(() => {
-        console.log('Cat table created.')
+        console.log('Fish table created.')
     })
 
-module.exports = Cat;
+module.exports = Fish;

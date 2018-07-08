@@ -1,31 +1,22 @@
-const Cat = require('./cats.model');
-const Fish = require('../fishes/fishes.model');
+const Fish = require('./fishes.model');
 const moment = require('../../../utils/moment');
 
 const findAll = async () => {
-    cats = await Cat.findAll({
-        include: [{
-            model: Fish
-        }]
-    });
-    return cats;
+    fishes = await Fish.findAll();
+    return fishes;
 }
 
 const create = async (data) => {
     data.createdAt = moment().format();
     data.updatedAt = moment().format();
 
-    const cat = await Cat.create(data);
-    return cat;
+    const fish = await Fish.create(data);
+    return fish;
 }
 
 const findById = async (id) => {
-    const cat = await Cat.findById(id, {
-        include: [{
-            model: Fish
-        }]
-    });
-    return cat;
+    const fish = await Fish.findById(id);
+    return fish;
 }
 
 const updateById = async (id, data) => {
@@ -38,9 +29,9 @@ const updateById = async (id, data) => {
         }
     }
 
-    let cats = await Cat.update(data, options);
-    cats = await Cat.findById(id);
-    return cats;   
+    let fishes = await Fish.update(data, options);
+    fishes = await Fish.findById(id);
+    return fishes;   
 }
 
 const deleteById = async (id) => {
@@ -50,8 +41,8 @@ const deleteById = async (id) => {
         }
     }
 
-    const cats = await Cat.destroy(options);
-    return cats;
+    const fishes = await Fish.destroy(options);
+    return fishes;
 } 
 
 module.exports = {

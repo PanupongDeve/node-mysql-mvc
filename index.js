@@ -13,6 +13,7 @@ const ResfulRoutes = require('./routes/restfulRoutes/rootRoutes');
 
 connection(sequelize); 
 
+require('./routes/restfulRoutes/relationship');
 
 ExpressMiddlewares(app);
 //SocketMiddlewares(io);
