@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 
 
 const db = {
-    database: 'cats',
+    database: 'catTests',
     username: 'root',
     password: ''
 }

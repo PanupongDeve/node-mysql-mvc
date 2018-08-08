@@ -14,7 +14,7 @@ module.exports = class Model {
     async create(data) {
         data.createdAt = this.moment().format();
         data.updatedAt = this.moment().format();
-        return await this.model.create();
+        return await this.model.create(data);
 
     }
 
