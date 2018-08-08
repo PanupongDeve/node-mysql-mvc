@@ -1,9 +1,9 @@
-const fishesServices = require('./fishes.services');
+const ownerModel = require('./owners.model');
 
 const findAll = async (req, res) => {
         try {   
             const data = {
-                fishes: await fishesServices.findAll()
+                owners: await ownerModel.findAll()
             }
             res.send(data);
         } catch (error) {
@@ -15,7 +15,7 @@ const findAll = async (req, res) => {
 const findById = async (req, res) => {
     try { 
         const data = {
-            fish: await fishesServices.findById(req.params.id)
+            owner: await ownerModel.findById(req.params.id)
         }
         res.send(data);
     } catch (error) {
@@ -27,7 +27,7 @@ const findById = async (req, res) => {
 const updateById = async (req, res) => {
     try { 
         const data = {
-            fish: await fishesServices.updateById(req.params.id, req.body)
+            owner: await ownerModel.updateById(req.params.id, req.body)
         }
         res.send(data);
     } catch (error) {
@@ -38,8 +38,8 @@ const updateById = async (req, res) => {
 
 const create = async (req, res) => {
     try { 
-        await fishesServices.create(req.body);
-        await res.send({ status: 'create fish success'});
+        await ownerModel.create(req.body);
+        await res.send({ status: 'create owner success'});
     } catch (error) {
         console.log(error);
         await res.status(400).send({ error })
@@ -48,12 +48,12 @@ const create = async (req, res) => {
 
 const deleteById = async (req, res) => {
     try { 
-        const deletedCat = await fishesServices.deleteById(req.params.id);
+        const deletedCat = await ownerModel.deleteById(req.params.id);
         if(!deletedCat) {
-            throw `Can not find id: ${req.params.id} for delete fish`
+            throw `Can not find id: ${req.params.id} for delete owner`
         } else {
             const data = {
-                fish: `fish id: ${req.params.id}  deleted success!`
+                owner: `owner id: ${req.params.id}  deleted success!`
             }
 
             res.send(data);

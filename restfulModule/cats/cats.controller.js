@@ -1,9 +1,10 @@
-const ownersServices = require('./owners.services');
+const catModel = require('./cats.model');
 
 const findAll = async (req, res) => {
-        try {   
+        try { 
+         
             const data = {
-                owners: await ownersServices.findAll()
+                cats: await catModel.findAll()
             }
             res.send(data);
         } catch (error) {
@@ -15,7 +16,7 @@ const findAll = async (req, res) => {
 const findById = async (req, res) => {
     try { 
         const data = {
-            owner: await ownersServices.findById(req.params.id)
+            cat: await catModel.findById(req.params.id)
         }
         res.send(data);
     } catch (error) {
@@ -27,7 +28,7 @@ const findById = async (req, res) => {
 const updateById = async (req, res) => {
     try { 
         const data = {
-            owner: await ownersServices.updateById(req.params.id, req.body)
+            cat: await catModel.updateById(req.params.id, req.body)
         }
         res.send(data);
     } catch (error) {
@@ -38,8 +39,8 @@ const updateById = async (req, res) => {
 
 const create = async (req, res) => {
     try { 
-        await ownersServices.create(req.body);
-        await res.send({ status: 'create owner success'});
+        await catModel.create(req.body);
+        await res.send({ status: 'create cat success'});
     } catch (error) {
         console.log(error);
         await res.status(400).send({ error })
@@ -48,12 +49,12 @@ const create = async (req, res) => {
 
 const deleteById = async (req, res) => {
     try { 
-        const deletedCat = await ownersServices.deleteById(req.params.id);
+        const deletedCat = await catModel.deleteById(req.params.id);
         if(!deletedCat) {
-            throw `Can not find id: ${req.params.id} for delete owner`
+            throw `Can not find id: ${req.params.id} for delete cat`
         } else {
             const data = {
-                owner: `owner id: ${req.params.id}  deleted success!`
+                cat: `cat id: ${req.params.id}  deleted success!`
             }
 
             res.send(data);

@@ -2,21 +2,19 @@ const express = require('express');
 const app = express();
 const http = require('http').Server(app)
 const io = require('socket.io')(http);
-const sequelize = require('./database/sequelize');
-const connection = require('./database/connection');
 
 
-const ExpressMiddlewares = require('./middlewares/ExpressMiddlewares');
-const SocketRootRoutes = require('./routes/socketRoutes/rootRoutes');
-const ResfulRoutes = require('./routes/restfulRoutes/rootRoutes');
+const Server = require('./DesignLayer/Server/Server');
+const mysql = require('./DesignLayer/Database/mysql/getInstance');
+const relation = require('./DesignLayer/Database/mysql/relationship');
+const getExpressInstance = require('./DesignLayer/Express/getInstance');
+const expressRestful = getExpressInstance(app);
 
-
-connection(sequelize); 
-
-require('./routes/restfulRoutes/relationship');
-
-ExpressMiddlewares(app);
-//SocketMiddlewares(io);
+const server = new Server(app, 5000);
+mysql.connect();
+relation.setup();
+expressRestful.setUp();
+server.start();
 
 
 /*io.on('connection', (socket) => {
@@ -28,16 +26,4 @@ ExpressMiddlewares(app);
 
    SocketRootRoutes(io, socket);
 });*/
-
-
-//---- Route------------
-
-ResfulRoutes(app);
-
-const PORT = process.env.PORT || 5000;
-
-
-http.listen(PORT, () => {
-    console.log(`Server running on ${PORT}`);
-});
 

@@ -1,9 +1,14 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../../../database/sequelize');
+const mysql = require('../../DesignLayer/Database/mysql/getInstance');
+
+const sequelize = mysql.getDatabase();
 
 
-const Owner = sequelize.define('owners', {
-    name: {
+const Cat = sequelize.define('cats', {
+    firstName: {
+        type: Sequelize.STRING
+    },
+    lastName: {
         type: Sequelize.STRING
     },
     createdAt: {
@@ -18,15 +23,13 @@ const Owner = sequelize.define('owners', {
         primaryKey: false,
         autoIncrement: false
     }
-}, {timestamps: false});
+});
 
-Owner
+
+Cat
     .sync()
     .then(() => {
-        console.log('Owner table created.')
+        console.log('Cat table created.')
     })
 
-
-
-
-module.exports =  Owner;
+module.exports = Cat;

@@ -1,10 +1,9 @@
-const catsServices = require('./cats.services');
+const fishModel= require('./fishes.model');
 
 const findAll = async (req, res) => {
-        try { 
-         
+        try {   
             const data = {
-                cats: await catsServices.findAll()
+                fishes: await fishModel.findAll()
             }
             res.send(data);
         } catch (error) {
@@ -16,7 +15,7 @@ const findAll = async (req, res) => {
 const findById = async (req, res) => {
     try { 
         const data = {
-            cat: await catsServices.findById(req.params.id)
+            fish: await fishModel.findById(req.params.id)
         }
         res.send(data);
     } catch (error) {
@@ -28,7 +27,7 @@ const findById = async (req, res) => {
 const updateById = async (req, res) => {
     try { 
         const data = {
-            cat: await catsServices.updateById(req.params.id, req.body)
+            fish: await fishModel.updateById(req.params.id, req.body)
         }
         res.send(data);
     } catch (error) {
@@ -39,8 +38,8 @@ const updateById = async (req, res) => {
 
 const create = async (req, res) => {
     try { 
-        await catsServices.create(req.body);
-        await res.send({ status: 'create cat success'});
+        await fishModel.create(req.body);
+        await res.send({ status: 'create fish success'});
     } catch (error) {
         console.log(error);
         await res.status(400).send({ error })
@@ -49,12 +48,12 @@ const create = async (req, res) => {
 
 const deleteById = async (req, res) => {
     try { 
-        const deletedCat = await catsServices.deleteById(req.params.id);
+        const deletedCat = await fishModel.deleteById(req.params.id);
         if(!deletedCat) {
-            throw `Can not find id: ${req.params.id} for delete cat`
+            throw `Can not find id: ${req.params.id} for delete fish`
         } else {
             const data = {
-                cat: `cat id: ${req.params.id}  deleted success!`
+                fish: `fish id: ${req.params.id}  deleted success!`
             }
 
             res.send(data);

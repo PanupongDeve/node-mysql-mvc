@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../../../database/sequelize');
+const mysql = require('../../getInstance');
+const sequelize = mysql.getDatabase();
 
 
 const OwnerCats = sequelize.define('OwnerCats', {

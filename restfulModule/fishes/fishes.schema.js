@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../../../database/sequelize');
+const mysql = require('../../DesignLayer/Database/mysql/getInstance');
+const sequelize = mysql.getDatabase();
 
 const Fish = sequelize.define('fishes', {
     amount: {
@@ -30,5 +31,4 @@ Fish
     .then(() => {
         console.log('Fish table created.')
     })
-
 module.exports = Fish;
