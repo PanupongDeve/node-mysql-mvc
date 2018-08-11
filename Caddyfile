@@ -1,0 +1,8 @@
+:80 {
+  proxy / web:3000
+}
+
+:443 {
+  proxy / web:3000
+  tls self_signed
+}

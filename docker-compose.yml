@@ -18,3 +18,22 @@ services:
       PMA_PORT: 3306
     ports:
       - 8080:80
+  web:
+    build:
+      context: .
+      dockerfile: web.Dockerfile
+      ports:
+        - 3000:3000
+      links:
+        - mysql
+  server:
+    build:
+      context: .
+      dockerfile: server.Dockerfile
+    ports:
+      - 80:80
+      - 443:443
+    links:
+      - web
+    volumes:
+      - $HOME/.caddy:/root/.caddy
