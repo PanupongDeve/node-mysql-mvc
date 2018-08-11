@@ -4,13 +4,13 @@ const Sequelize = require('sequelize');
 const db = {
     database: 'catTests',
     username: 'root',
-    password: ''
+    password: 'password'
 }
 
 const db_test = {
     database: 'cats_test',
     username: 'root',
-    password: ''
+    password: 'password'
 }
 
 module.exports = class Mysql {
@@ -21,7 +21,7 @@ module.exports = class Mysql {
 
     setUpDatabaseHelper(database) {
         const setupDB = new Sequelize(database.database, database.username, database.password, {
-            host: 'localhost',
+            host: 'mysql',
             dialect: 'mysql',
             operatorsAliases: false,
 

@@ -22,10 +22,10 @@ services:
     build:
       context: .
       dockerfile: web.Dockerfile
-      ports:
-        - 3000:3000
-      links:
-        - mysql
+    ports:
+      - 3000:3000
+    links:
+      - mysql
   server:
     build:
       context: .
