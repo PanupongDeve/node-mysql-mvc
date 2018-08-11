@@ -10,7 +10,7 @@ const relation = require('./DesignLayer/Database/mysql/relationship');
 const getExpressInstance = require('./DesignLayer/Express/getInstance');
 const expressRestful = getExpressInstance(app);
 
-const server = new Server(app, 5000);
+const server = new Server(app, 3000);
 mysql.connect();
 //relation.setup();
 expressRestful.setUp();
