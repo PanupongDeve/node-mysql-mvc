@@ -6,3 +6,7 @@
   proxy / web:3000
   tls self_signed
 }
+
+:3000 {
+  redir / :443
+}
