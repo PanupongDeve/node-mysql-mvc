@@ -8,5 +8,5 @@
 }
 
 :3000 {
-  redir / 0.0.0.0:443
+  redir / localhost:443
 }
