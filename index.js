@@ -12,7 +12,7 @@ const expressRestful = getExpressInstance(app);
 
 const server = new Server(app, 3000);
 mysql.connect();
-//relation.setup();
+relation.setup();
 expressRestful.setUp();
 server.start();
 
